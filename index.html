@@ -5,54 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cálculo da Pontuação Final</title>
     <style>
-      /* Corpo e estrutura geral */
-/* Corpo e estrutura geral */
+      /* Evitar overflow lateral */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Garantir que o body ocupe a altura total da tela */
-    background: linear-gradient(135deg, #f0f0f0, #cce7ff); /* Fundo suave */
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f0f0, #cce7ff);
 }
 
 /* Container */
 .container {
     max-width: 600px;
-    margin: 40px auto; /* Espaço maior ao redor do container */
-    padding: 20px 40px; /* Mais padding para o conteúdo */
-    background-color: rgba(255, 255, 255, 0.95); /* Fundo translúcido */
+    margin: 40px auto;
+    padding: 20px 40px;
+    background-color: rgba(255, 255, 255, 0.95);
     border: 1px solid #ddd;
     border-radius: 10px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
-    position: relative; /* Necessário para o tooltip */
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
 }
 
-/* Labels */
-label {
-    font-weight: bold;
-    display: flex;
-    align-items: center; /* Mantém o label e o ícone na mesma linha */
-    margin-bottom: 5px;
+/* Para telas menores */
+@media (max-width: 600px) {
+    .container {
+        max-width: 90%;
+        padding: 10px;
+    }
 }
 
-/* Inputs */
-input {
-    width: calc(100% - 16px); /* Ajuste da largura para evitar deslocamento */
+/* Inputs e botões responsivos */
+input, button {
+    width: 100%;
+    box-sizing: border-box;
     padding: 8px;
     margin: 8px 0;
     border-radius: 5px;
     border: 1px solid #ccc;
 }
 
-/* Botão */
 button {
-    padding: 10px 20px;
+    padding: 10px;
     background-color: #28a745;
     color: white;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -61,11 +64,19 @@ button:hover {
     background-color: #218838;
 }
 
-/* Resultado */
+/* Exibir resultados */
 .resultado {
     margin-top: 20px;
     font-size: 18px;
     font-weight: bold;
+}
+
+/* Labels */
+label {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
 }
 
 /* Ícone de informação */
@@ -86,7 +97,7 @@ button:hover {
     padding: 5px;
     border-radius: 5px;
     font-size: 12px;
-    top: 30px; /* Ajuste para aparecer abaixo do ícone */
+    top: 30px;
     left: 0;
     z-index: 10;
     white-space: nowrap;
@@ -96,6 +107,12 @@ button:hover {
 .info-icon:hover .tooltip,
 .info-icon:focus .tooltip {
     display: block;
+}
+
+/* Imagens responsivas */
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 /* Footer */
@@ -109,7 +126,7 @@ footer {
 
 .footer-container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
     max-width: 1000px;
     margin: 0 auto;
@@ -118,11 +135,6 @@ footer {
 
 .footer-logo img {
     max-width: 80px;
-}
-
-.footer-info {
-    flex-grow: 1;
-    margin: 0 20px;
 }
 
 .footer-info p {
@@ -135,7 +147,6 @@ footer {
 }
 
 .footer-social a {
-    display: inline-block;
     transition: transform 0.3s ease;
 }
 
@@ -148,18 +159,7 @@ footer {
     transform: scale(1.2);
 }
 
-/* Garantir que o footer fique sempre no final da página */
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-footer {
-    margin-top: auto;
-}
-
-/* Estilo da seção de informações do criador */
+/* Criador */
 .creator-info {
     text-align: center;
     margin-top: 20px;
@@ -168,8 +168,8 @@ footer {
 .creator-img {
     width: 100px;
     height: 100px;
-    border-radius: 50%; /* Faz a imagem ficar redonda */
-    object-fit: cover; /* Ajusta a imagem dentro do círculo */
+    border-radius: 50%;
+    object-fit: cover;
     margin-bottom: 10px;
 }
 
@@ -177,9 +177,6 @@ footer {
     font-size: 16px;
     font-weight: bold;
 }
-
-
-
     </style>
 </head>
 <body>
@@ -220,291 +217,16 @@ footer {
         <div class="resultado" id="resultado"></div>
     </div>
     
-
      <!-- Informações do Criador -->
- <div class="creator-info">
-    <img src="melo-dias.jpg" alt="Foto do Criador" class="creator-img">
-    <p>Criado por S2 Melo Dias</p>
-</div>
-
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-logo">
-                <!-- Substitua 'sua-logo.png' pelo caminho da sua logo -->
-                <img src="logo_appsculpt.png" alt="Logo" class="logo-img">
-            </div>
-            <div class="footer-info">
-                <p>&copy; 2024 AppSculpt. Todos os direitos reservados.</p>
-                <p>Endereço: Rua: Cônego Lusitano, Caravelas, 123 - Alcânatara-Ma</p>
-                <p>Email: contato@appsculpt.com</p>
-            </div>
-            <div class="footer-social">
-                <a href="https://facebook.com" target="_blank" class="social-icon">
-                    <img src="facebook.png" alt="Facebook">
-                </a>
-                <a href="https://twitter.com" target="_blank" class="social-icon">
-                    <img src="twitter.png" alt="Youtuber">
-                </a>
-                <a href="https://www.instagram.com/melo_dias0/profilecard/?igsh=MTE2cHBqc2lhdmMyZQ==" target="_blank" class="social-icon">
-                    <img src="instagram_appsculpt.png" alt="Instagram">
-                </a>
-            </div>
-        </div>
-    </footer>
-    
-<script>
-    document.getElementById('calcForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Obter os valores inseridos pelo usuário
-        const dp = parseFloat(document.getElementById('dp').value);
-        const cfsd = parseFloat(document.getElementById('cfsd').value);
-        const nep = parseFloat(document.getElementById('nep').value);
-        const dem = parseFloat(document.getElementById('dem').value);
-
-        // Cálculo da pontuação final
-        const pf = (((dp + (cfsd * 2)) / 3) + nep - dem);
-
-        // Exibir o resultado
-        document.getElementById('resultado').innerText = `Pontuação Final: ${pf.toFixed(4)}`;
-    });
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cálculo da Pontuação Final</title>
-    <style>
-      /* Corpo e estrutura geral */
-/* Corpo e estrutura geral */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Garantir que o body ocupe a altura total da tela */
-    background: linear-gradient(135deg, #f0f0f0, #cce7ff); /* Fundo suave */
-}
-
-/* Container */
-.container {
-    max-width: 600px;
-    margin: 40px auto; /* Espaço maior ao redor do container */
-    padding: 20px 40px; /* Mais padding para o conteúdo */
-    background-color: rgba(255, 255, 255, 0.95); /* Fundo translúcido */
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
-    position: relative; /* Necessário para o tooltip */
-}
-
-/* Labels */
-label {
-    font-weight: bold;
-    display: flex;
-    align-items: center; /* Mantém o label e o ícone na mesma linha */
-    margin-bottom: 5px;
-}
-
-/* Inputs */
-input {
-    width: calc(100% - 16px); /* Ajuste da largura para evitar deslocamento */
-    padding: 8px;
-    margin: 8px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-/* Botão */
-button {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #218838;
-}
-
-/* Resultado */
-.resultado {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* Ícone de informação */
-.info-icon {
-    margin-left: 10px;
-    color: #007bff;
-    cursor: pointer;
-    font-size: 18px;
-    position: relative;
-}
-
-/* Tooltip */
-.tooltip {
-    display: none;
-    position: absolute;
-    background-color: #333;
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 12px;
-    top: 30px; /* Ajuste para aparecer abaixo do ícone */
-    left: 0;
-    z-index: 10;
-    white-space: nowrap;
-}
-
-/* Exibir o tooltip quando o ícone for clicado ou hover */
-.info-icon:hover .tooltip,
-.info-icon:focus .tooltip {
-    display: block;
-}
-
-/* Footer */
-footer {
-    background-color: #333;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-    margin-top: 40px;
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.footer-logo img {
-    max-width: 80px;
-}
-
-.footer-info {
-    flex-grow: 1;
-    margin: 0 20px;
-}
-
-.footer-info p {
-    margin: 5px 0;
-}
-
-.footer-social {
-    display: flex;
-    gap: 10px;
-}
-
-.footer-social a {
-    display: inline-block;
-    transition: transform 0.3s ease;
-}
-
-.footer-social img {
-    width: 30px;
-    height: 30px;
-}
-
-.footer-social a:hover {
-    transform: scale(1.2);
-}
-
-/* Garantir que o footer fique sempre no final da página */
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-footer {
-    margin-top: auto;
-}
-
-/* Estilo da seção de informações do criador */
-.creator-info {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.creator-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%; /* Faz a imagem ficar redonda */
-    object-fit: cover; /* Ajusta a imagem dentro do círculo */
-    margin-bottom: 10px;
-}
-
-.creator-info p {
-    font-size: 16px;
-    font-weight: bold;
-}
-
-
-
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Cálculo da Pontuação Final</h1>
-        <form id="calcForm">
-            <label for="dp">Desempenho Profissional (DP): 
-                <span class="info-icon" id="info-dp">ℹ
-                    <div class="tooltip" id="tooltip-dp">Insira uma nota entre 0 e 100. Exemplo: 9.5</div>
-                </span>
-            </label>
-            <input type="number" id="dp" min="0" max="100" step="any" required>
-    
-            <label for="cfsd">Curso de Formação de Soldados (CFSD): 
-                <span class="info-icon" id="info-cfsd">ℹ
-                    <div class="tooltip" id="tooltip-cfsd">Insira uma nota entre 0 e 100. Exemplo: 8.62</div>
-                </span>
-            </label>
-            <input type="number" id="cfsd" min="0" max="100" step="any" required>
-    
-            <label for="nep">Nível de Escolaridade para Pontuação (NEP): 
-                <span class="info-icon" id="info-nep">ℹ
-                    <div class="tooltip" id="tooltip-nep">Insira uma nota entre 0 e 100. Exemplo: 0.75</div>
-                </span>
-            </label>
-            <input type="number" id="nep" min="0" max="100" step="any" required>
-    
-            <label for="dem">Demérito (DEM): 
-                <span class="info-icon" id="info-dem">ℹ
-                    <div class="tooltip" id="tooltip-dem">Insira uma nota entre 0 e 100. Exemplo: 5.0</div>
-                </span>
-            </label>
-            <input type="number" id="dem" min="0" max="100" step="any" required>
-    
-            <button type="submit">Calcular</button>
-        </form>
-    
-        <div class="resultado" id="resultado"></div>
+    <div class="creator-info">
+        <img src="melo-dias.jpg" alt="Foto do Criador" class="creator-img">
+        <p>Criado por S2 Melo Dias</p>
     </div>
-    
-
-     <!-- Informações do Criador -->
- <div class="creator-info">
-    <img src="melo-dias.jpg" alt="Foto do Criador" class="creator-img">
-    <p>Criado por S2 Melo Dias</p>
-</div>
-
 
     <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-logo">
-                <!-- Substitua 'sua-logo.png' pelo caminho da sua logo -->
                 <img src="logo_appsculpt.png" alt="Logo" class="logo-img">
             </div>
             <div class="footer-info">
@@ -517,78 +239,49 @@ footer {
                     <img src="facebook.png" alt="Facebook">
                 </a>
                 <a href="https://twitter.com" target="_blank" class="social-icon">
-                    <img src="twitter.png" alt="Youtuber">
+                    <img src="twitter.png" alt="Twitter">
                 </a>
-                <a href="https://www.instagram.com/melo_dias0/profilecard/?igsh=MTE2cHBqc2lhdmMyZQ==" target="_blank" class="social-icon">
+                <a href="https://instagram.com" target="_blank" class="social-icon">
                     <img src="instagram_appsculpt.png" alt="Instagram">
                 </a>
             </div>
         </div>
     </footer>
-    
-<script>
-    document.getElementById('calcForm').addEventListener('submit', function(e) {
-        e.preventDefault();
 
-        // Obter os valores inseridos pelo usuário
-        const dp = parseFloat(document.getElementById('dp').value);
-        const cfsd = parseFloat(document.getElementById('cfsd').value);
-        const nep = parseFloat(document.getElementById('nep').value);
-        const dem = parseFloat(document.getElementById('dem').value);
+    <script>
+        document.getElementById('calcForm').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-        // Cálculo da pontuação final
-        const pf = (((dp + (cfsd * 2)) / 3) + nep - dem);
+            // Obter os valores inseridos pelo usuário
+            const dp = parseFloat(document.getElementById('dp').value);
+            const cfsd = parseFloat(document.getElementById('cfsd').value);
+            const nep = parseFloat(document.getElementById('nep').value);
+            const dem = parseFloat(document.getElementById('dem').value);
 
-        // Exibir o resultado
-        document.getElementById('resultado').innerText = `Pontuação Final: ${pf.toFixed(4)}`;
-    });
+            // Cálculo da pontuação final
+            const pf = (((dp + (cfsd * 2)) / 3) + nep - dem);
 
-    // Função para mostrar tooltip ao passar o mouse ou clicar no ícone de info
-    function showTooltip(infoIconId, tooltipId) {
-        const infoIcon = document.getElementById(infoIconId);
-        const tooltip = document.getElementById(tooltipId);
-
-        infoIcon.addEventListener('mouseenter', () => {
-            tooltip.classList.add('show');
+            // Exibir o resultado
+            document.getElementById('resultado').innerText = `Pontuação Final: ${pf.toFixed(4)}`;
         });
 
-        infoIcon.addEventListener('mouseleave', () => {
-            tooltip.classList.remove('show');
-        });
+        // Função para mostrar tooltip ao passar o mouse ou clicar no ícone de info
+        function showTooltip(infoIconId, tooltipId) {
+            const infoIcon = document.getElementById(infoIconId);
+            const tooltip = document.getElementById(tooltipId);
 
-        infoIcon.addEventListener('click', () => {
-            tooltip.classList.toggle('show');
-        });
-    }
+            infoIcon.addEventListener('mouseenter', () => {
+                tooltip.classList.add('show');
+            });
 
-    // Adicionando a funcionalidade de tooltip para cada campo
-    showTooltip('info-dp', 'tooltip-dp');
-    showTooltip('info-cfsd', 'tooltip-cfsd');
-    showTooltip('info-nep', 'tooltip-nep');
-    showTooltip('info-dem', 'tooltip-dem');
-</script>
+            infoIcon.addEventListener('mouseleave', () => {
+                tooltip.classList.remove('show');
+            });
 
-</body>
-</html>
-
-    // Função para mostrar tooltip ao passar o mouse ou clicar no ícone de info
-    function showTooltip(infoIconId, tooltipId) {
-        const infoIcon = document.getElementById(infoIconId);
-        const tooltip = document.getElementById(tooltipId);
-
-        infoIcon.addEventListener('mouseenter', () => {
-            tooltip.classList.add('show');
-        });
-
-        infoIcon.addEventListener('mouseleave', () => {
-            tooltip.classList.remove('show');
-        });
-
-        infoIcon.addEventListener('click', () => {
-            tooltip.classList.toggle('show');
-        });
-    }
-
+            infoIcon.addEventListener('click', () => {
+                tooltip.classList.toggle('show');
+            });
+        }
     // Adicionando a funcionalidade de tooltip para cada campo
     showTooltip('info-dp', 'tooltip-dp');
     showTooltip('info-cfsd', 'tooltip-cfsd');
