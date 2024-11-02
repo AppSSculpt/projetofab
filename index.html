@@ -3,291 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cálculo da Pontuação Final</title>
+    <title>Site em Migração</title>
     <style>
-      /* Evitar overflow lateral */
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #f0f0f0, #cce7ff);
-}
-
-/* Container */
-.container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px 40px;
-    background-color: rgba(255, 255, 255, 0.95);
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-    position: relative;
-}
-
-/* Para telas menores */
-@media (max-width: 600px) {
-    .container {
-        max-width: 90%;
-        padding: 10px;
-    }
-}
-
-/* Inputs e botões responsivos */
-input, button {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 8px;
-    margin: 8px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
-
-button {
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #218838;
-}
-
-/* Exibir resultados */
-.resultado {
-    margin-top: 20px;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* Labels */
-label {
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-/* Ícone de informação */
-.info-icon {
-    margin-left: 10px;
-    color: #007bff;
-    cursor: pointer;
-    font-size: 18px;
-    position: relative;
-}
-
-/* Tooltip */
-.tooltip {
-    display: none;
-    position: absolute;
-    background-color: #333;
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 12px;
-    top: 30px;
-    left: 0;
-    z-index: 10;
-    white-space: nowrap;
-}
-
-/* Exibir o tooltip quando o ícone for clicado ou hover */
-.info-icon:hover .tooltip,
-.info-icon:focus .tooltip {
-    display: block;
-}
-
-/* Imagens responsivas */
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-/* Footer */
-footer {
-    background-color: #333;
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-    margin-top: 40px;
-}
-
-.footer-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.footer-logo img {
-    max-width: 80px;
-}
-
-.footer-info p {
-    margin: 5px 0;
-}
-
-.footer-social {
-    display: flex;
-    gap: 10px;
-}
-
-.footer-social a {
-    transition: transform 0.3s ease;
-}
-
-.footer-social img {
-    width: 30px;
-    height: 30px;
-}
-
-.footer-social a:hover {
-    transform: scale(1.2);
-}
-
-/* Criador */
-.creator-info {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.creator-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 10px;
-}
-
-.creator-info p {
-    font-size: 16px;
-    font-weight: bold;
-}
+        /* Estilos básicos */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f0f0f0, #cce7ff);
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #218838;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Cálculo da Pontuação Final</h1>
-        <form id="calcForm">
-            <label for="dp">Desempenho Profissional (DP): 
-                <span class="info-icon" id="info-dp">ℹ
-                    <div class="tooltip" id="tooltip-dp">Insira uma nota entre 0 e 100. Exemplo: 9.5</div>
-                </span>
-            </label>
-            <input type="number" id="dp" min="0" max="100" step="any" required>
-    
-            <label for="cfsd">Curso de Formação de Soldados (CFSD): 
-                <span class="info-icon" id="info-cfsd">ℹ
-                    <div class="tooltip" id="tooltip-cfsd">Insira uma nota entre 0 e 100. Exemplo: 8.62</div>
-                </span>
-            </label>
-            <input type="number" id="cfsd" min="0" max="100" step="any" required>
-    
-            <label for="nep">Nível de Escolaridade para Pontuação (NEP): 
-                <span class="info-icon" id="info-nep">ℹ
-                    <div class="tooltip" id="tooltip-nep">Insira uma nota entre 0 e 100. Exemplo: 0.75</div>
-                </span>
-            </label>
-            <input type="number" id="nep" min="0" max="100" step="any" required>
-    
-            <label for="dem">Demérito (DEM): 
-                <span class="info-icon" id="info-dem">ℹ
-                    <div class="tooltip" id="tooltip-dem">Insira uma nota entre 0 e 100. Exemplo: 5.0</div>
-                </span>
-            </label>
-            <input type="number" id="dem" min="0" max="100" step="any" required>
-    
-            <button type="submit">Calcular</button>
-        </form>
-    
-        <div class="resultado" id="resultado"></div>
+        <h1>Site em Migração</h1>
+        <p>Olá, nós migramos para um novo local!<br> Clique no botão abaixo para acessar a nova versão deste sistema.</p>
+        <a href="https://appsculpt.com.br/calculadora-de-pontuacao" target="_blank">
+            <button>Acessar Novo Site</button>
+        </a>
     </div>
-    
-     <!-- Informações do Criador -->
-    <div class="creator-info">
-        <img src="melo-dias.jpg" alt="Foto do Criador" class="creator-img">
-        <p>Criado por S2 Melo Dias</p>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-logo">
-                <img src="logo_appsculpt.png" alt="Logo" class="logo-img">
-            </div>
-            <div class="footer-info">
-                <p>&copy; 2024 AppSculpt. Todos os direitos reservados.</p>
-                <p>Endereço: Rua: Cônego Lusitano, Caravelas, 123 - Alcântara-Ma</p>
-                <p>Email: contato@appsculpt.com</p>
-            </div>
-            <div class="footer-social">
-                <a href="https://facebook.com" target="_blank" class="social-icon">
-                    <img src="facebook.png" alt="Facebook">
-                </a>
-                <a href="https://twitter.com" target="_blank" class="social-icon">
-                    <img src="twitter.png" alt="Twitter">
-                </a>
-                <a href="https://instagram.com" target="_blank" class="social-icon">
-                    <img src="instagram_appsculpt.png" alt="Instagram">
-                </a>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        document.getElementById('calcForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-
-            // Obter os valores inseridos pelo usuário
-            const dp = parseFloat(document.getElementById('dp').value);
-            const cfsd = parseFloat(document.getElementById('cfsd').value);
-            const nep = parseFloat(document.getElementById('nep').value);
-            const dem = parseFloat(document.getElementById('dem').value);
-
-            // Cálculo da pontuação final
-            const pf = (((dp + (cfsd * 2)) / 3) + nep - dem);
-
-            // Exibir o resultado
-            document.getElementById('resultado').innerText = `Pontuação Final: ${pf.toFixed(4)}`;
-        });
-
-        // Função para mostrar tooltip ao passar o mouse ou clicar no ícone de info
-        function showTooltip(infoIconId, tooltipId) {
-            const infoIcon = document.getElementById(infoIconId);
-            const tooltip = document.getElementById(tooltipId);
-
-            infoIcon.addEventListener('mouseenter', () => {
-                tooltip.classList.add('show');
-            });
-
-            infoIcon.addEventListener('mouseleave', () => {
-                tooltip.classList.remove('show');
-            });
-
-            infoIcon.addEventListener('click', () => {
-                tooltip.classList.toggle('show');
-            });
-        }
-    // Adicionando a funcionalidade de tooltip para cada campo
-    showTooltip('info-dp', 'tooltip-dp');
-    showTooltip('info-cfsd', 'tooltip-cfsd');
-    showTooltip('info-nep', 'tooltip-nep');
-    showTooltip('info-dem', 'tooltip-dem');
-</script>
-
 </body>
 </html>
